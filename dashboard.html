@@ -1,0 +1,117 @@
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #f4f4f4;
+      text-align: center;
+      margin-top: 100px;
+    }
+    .card {
+      background: white;
+      padding: 30px;
+      width: 300px;
+      margin: auto;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 15px;
+      border: none;
+      background: #333;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    button:hover {
+      background: #555;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+    <h2 id="welcome">Loading...</h2>
+    <button onclick="logout()">Logout</button>
+  </div>
+
+  <script>
+    const token = localStorage.getItem("token");
+
+    // ❌ No token → go back
+    if (!token) {
+      window.location.replace("index.html");
+    }
+
+    // ✅ Get real data from server
+    fetch("http://localhost:3000/dashboard-data", {
+      headers: {
+        "Authorization": "Bearer " + token
+      }
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (!data.success) {
+        // ❌ invalid token
+        localStorage.removeItem("token");
+        window.location.replace("index.html");
+      } else {
+        document.getElementById("welcome").innerText =
+          "Welcome, " + data.user.username;
+      }
+    });
+
+    // 🔴 Logout
+    function logout() {
+      localStorage.removeItem("token");
+      window.location.replace("index.html");
+    }
+  </script>
+
+
+
+
+
+
+
+
+
+  <script>
+  async function loadDashboard() {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      window.location.replace("index.html");
+      return;
+    }
+
+    let response = await fetch("http://localhost:3000/dashboard-data", {
+      method: "GET",
+      headers: {
+        "Authorization": "Bearer " + token
+      }
+    });
+
+    let data = await response.json();
+
+    if (!data.success) {
+      localStorage.removeItem("token");
+      window.location.replace("index.html");
+    } else {
+      document.getElementById("welcome").innerText =
+        "Welcome " + data.user.username;
+    }
+  }
+
+  loadDashboard();
+</script>
+
+</body>
+</html>
