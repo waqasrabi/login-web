@@ -68,6 +68,6 @@ console.log("here");
   } catch (error) {
     document.getElementById("signupMessage").innerText = "Server error";
   }
-});
+})
 
 

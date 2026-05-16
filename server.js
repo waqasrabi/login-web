@@ -4,13 +4,22 @@ const cors = require("cors");
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect("mongodb://127.0.0.1:27017/loginDB")
+//below is for locally istalled mongodb with mongoose layer
+//mongoose.connect("mongodb://127.0.0.1:27017/loginDB")
+//.then(() => console.log("Database connected"))
+//.catch(err => console.log(err));
+
+// and now for cloud database with env as isntalled above
+
+
+mongoose.connect(process.env.MONGO_URI)
 .then(() => console.log("Database connected"))
 .catch(err => console.log(err));
 
