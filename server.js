@@ -78,7 +78,7 @@ app.post("/login", async (req, res) => {
   // 🔐 CREATE TOKEN
   const token = jwt.sign(
     { id: user._id, username: user.username },
-    "secretKey123",
+    process.env.JWT_SECRET,
     { expiresIn: "1h" }
   );
 
@@ -105,7 +105,7 @@ function verifyToken(req, res, next) {
   const token = authHeader.split(" ")[1]; 
   // format: "Bearer TOKEN"
 
-  jwt.verify(token, "secretKey123", (err, decoded) => {
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
     if (err) {
       return res.json({ success: false, message: "Invalid token" });
     }
