@@ -8,7 +8,9 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
   const password = document.getElementById("loginPassword").value;
 
   try {
-    let response = await fetch("http://localhost:3000/login", {
+    // for local machine server let response = await fetch("http://localhost:3000/login", {
+    let response = await fetch("/login", {
+     
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -49,8 +51,9 @@ document.getElementById("signupForm").addEventListener("submit", async function(
   const password = document.getElementById("signupPassword").value;
 console.log("here");
   try {
-    let response = await fetch("http://localhost:3000/signup", {
-      method: "POST",
+    // for local machine server, let response = await fetch("http://localhost:3000/signup", {
+      let response = await fetch("/signup", {
+     method: "POST",
       headers: {
         "Content-Type": "application/json"
       },

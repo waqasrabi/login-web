@@ -51,7 +51,7 @@
     }
 
     // ✅ Get real data from server
-    fetch("http://localhost:3000/dashboard-data", {
+    fetch("/dashboard-data", {
       headers: {
         "Authorization": "Bearer " + token
       }
@@ -92,7 +92,8 @@
       return;
     }
 
-    let response = await fetch("http://localhost:3000/dashboard-data", {
+    // for local machine server, let response = await fetch("http://localhost:3000/dashboard-data", {
+    let response = await fetch("/dashboard-data", {
       method: "GET",
       headers: {
         "Authorization": "Bearer " + token
