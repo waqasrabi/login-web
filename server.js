@@ -28,6 +28,8 @@ const User = mongoose.model("User", {
   password: String
 });
 
+app.use(express.static("public"));
+
 
 
 
